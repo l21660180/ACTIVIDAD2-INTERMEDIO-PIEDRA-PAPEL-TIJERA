@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piedra, Papel o Tijera</title>
+    <style>
+        /* Estilos para el cuerpo del documento */
+        body {
+            font-family: 'Arial', sans-serif; /* Fuente para todo el texto */
+            display: flex; /* Usar flexbox para centrar los elementos */
+            flex-direction: column; /* Disposición en columna */
+            align-items: center; /* Centra horizontalmente */
+            justify-content: center; /* Centra verticalmente */
+            height: 100vh; /* 100% de la altura de la ventana */
+            background-color: #F8BBD0; /* Fondo suave color rosa claro */
+            margin: 0; /* Sin márgenes alrededor */
+            color: #333; /* Color del texto */
+        }
+
+        /* Estilo para el título */
+        h1 {
+            margin-bottom: 30px; /* Espacio debajo del título */
+            font-size: 36px; /* Tamaño del texto más grande */
+            color: #D81B60; /* Color rosa oscuro */
+            font-weight: bold; /* Negrita para el título */
+        }
+
+        /* Estilos para los botones de las elecciones */
+        .choices {
+            display: flex; /* Distribuir los botones en una fila */
+            gap: 30px; /* Espacio entre los botones */
+            margin-bottom: 40px; /* Espacio debajo de los botones */
+        }
+
+        /* Estilo común para los botones */
+        .choice-btn {
+            background-color: #ba1691; /* Color de fondo rosa claro */
+            color: white; /* Texto en blanco */
+            font-size: 24px; /* Tamaño grande de fuente */
+            padding: 20px 30px; /* Relleno interno */
+            border-radius: 10px; /* Bordes redondeados */
+            cursor: pointer; /* Cambia el cursor al pasar por encima */
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para el efecto hover */
+            border: none; /* Sin borde en el botón */
+        }
+
+        /* Efecto hover en los botones */
+        .choice-btn:hover {
+            transform: scale(1.1); /* Aumenta el tamaño */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Agrega sombra en hover */
+        }
+
+        /* Estilo para el texto del resultado */
+        .result {
+            margin-top: 20px; /* Espacio encima del resultado */
+            font-size: 24px; /* Tamaño de fuente grande */
+            font-weight: bold; /* Texto en negrita */
+            color: #8E24AA; /* Color morado suave */
+            text-align: center; /* Centrado del texto */
+        }
+
+        /* Estilo para el resultado en color resaltado */
+        .result span {
+            color: #D81B60; /* Color rosa para el texto resaltado */
+        }
+    </style>
+</head>
+<body>
+    <h1>Piedra, Papel o Tijera</h1>
+
+    <div class="choices">
+        <!-- Botones de opciones: Piedra, Papel, Tijera -->
+        <button class="choice-btn" onclick="play('piedra')">🪨 Piedra</button>
+        <button class="choice-btn" onclick="play('papel')">📄 Papel</button>
+        <button class="choice-btn" onclick="play('tijera')">✂️ Tijera</button>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        /**
+         * Función que se ejecuta al seleccionar una opción (piedra, papel o tijera)
+         * @param {string} userChoice - La elección del usuario ('piedra', 'papel', 'tijera')
+         */
+        function play(userChoice) {
+            // Opciones posibles
+            const choices = ['piedra', 'papel', 'tijera'];
+
+            // Selección aleatoria de la computadora
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+            let result = ''; // Variable para almacenar el resultado del juego
+
+            // Lógica de comparación entre la elección del usuario y la de la computadora
+            if (userChoice === computerChoice) {
+                result = 'Empate'; // Si ambas elecciones son iguales
+            } else if (
+                (userChoice === 'piedra' && computerChoice === 'tijera') ||
+                (userChoice === 'papel' && computerChoice === 'piedra') ||
+                (userChoice === 'tijera' && computerChoice === 'papel')
+            ) {
+                // El usuario gana
+                result = '¡Ganaste! ' + userChoice + ' vence a ' + computerChoice;
+            } else {
+                // La computadora gana
+                result = 'Perdiste... ' + computerChoice + ' vence a ' + userChoice;
+            }
+
+            // Actualiza el contenido del div "result" con el resultado del juego
+            document.getElementById('result').innerHTML = `<span>${result}</span>`;
+        }
+    </script>
+</body>
+</html>
